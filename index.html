@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no" />
-<title>Página Especial para o Dia das Mães - Textos Grandes</title>
+<title>Página Especial para o Dia das Mães</title>
 <style>
   /* Reset */
   * {
@@ -46,14 +46,6 @@
     margin-bottom: 4px;
     color: #ff5acc;
   }
-  p.intro {
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.3;
-    margin-bottom: 20px;
-    color: #ff70d7cc;
-    user-select: text;
-  }
   #countdown {
     font-size: 1.4rem;
     font-weight: 800;
@@ -80,113 +72,29 @@
     color: #ff92d1;
     text-shadow: 0 0 8px #ff67c5bb;
   }
-  audio, iframe {
+  audio {
     width: 100%;
     border-radius: 8px;
     box-shadow: 0 3px 12px #ff69c1aa;
     background: #10001f;
   }
-  /* Spotify embed */
-  #spotifyContainer {
-    display: none;
-    margin-top: 10px;
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 3px 12px #ff69c1aa;
-  }
-  #spotifyEmbed {
-    width: 100%;
-    height: 80px;
-    border-radius: 8px;
-    border: none;
-    background: #10001f;
-  }
-  /* Spotify form */
-  #spotifyForm {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 100%;
-    margin-bottom: 25px;
-  }
-  #spotifyForm label {
-    font-weight: 600;
-    color: #ff99db;
-  }
-  #spotifyForm input[type="url"] {
-    padding: 8px 10px;
-    border: 2px solid #ff57be;
-    border-radius: 8px;
-    font-size: 1rem;
-    color: #ff40c9;
-    background: #1a0026;
-    transition: border-color 0.3s ease;
-  }
-  #spotifyForm input[type="url"]:focus {
-    outline: none;
-    border-color: #ff80df;
-    background: #2c003a;
-  }
-  #spotifyForm button {
-    background: #ff57be;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    color: white;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  #spotifyForm button:hover, #spotifyForm button:focus {
-    background: #ff7fcc;
-    outline: none;
-  }
-  /* Popup for Spotify cover and name */
-  #popupOverlay {
-    display: none;
-    position: fixed;
-    z-index: 10000;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(255, 0, 150, 0.9);
-    justify-content: center;
-    align-items: center;
-  }
-  #popupContent {
-    background: #2c003a;
-    border-radius: 12px;
-    padding: 20px 25px;
-    max-width: 300px;
-    width: 90%;
+  #musicCoverContainer {
+    margin-top: 8px;
     text-align: center;
-    box-shadow: 0 6px 20px #ff33ccdd;
-    position: relative;
-    user-select: none;
-    color: #fff0ff;
   }
-  #popupContent img {
-    max-width: 80%;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    box-shadow: 0 4px 15px #ff33ccbb;
+  #musicCoverContainer img {
+    max-width: 140px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px #ff69c1aa;
   }
-  #popupContent h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.3rem;
-    user-select: text;
-  }
-  #popupClose {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    background: transparent;
-    border: none;
-    font-size: 1.6rem;
+  #musicCoverContainer h3 {
+    margin: 10px 0 0 0;
+    color: #ff92d1;
     font-weight: 700;
-    color: #ff4fc9;
-    cursor: pointer;
-    user-select: none;
+    font-size: 1.2rem;
+    text-shadow: 0 0 8px #ff67c5bb;
   }
+
   /* Wish form */
   #wishForm {
     display: flex;
@@ -207,7 +115,7 @@
     border-radius: 8px;
     border: 2px solid #ff5bbb;
     color: #ff3ec3;
-    min-height: 140px;
+    min-height: 220px;
     background: #1a0026;
     transition: border-color 0.3s ease;
   }
@@ -241,132 +149,42 @@
   #wishes {
     margin-top: 10px;
     width: 100%;
-    max-height: 250px;
+    max-height: 350px;
     overflow-y: auto;
     background: #1a0026;
     border-radius: 8px;
-    padding: 12px;
+    padding: 15px;
     box-shadow: inset 0 0 14px #ff40c963;
     user-select: none;
   }
   .wish {
     background: #3f004c;
-    border-radius: 6px;
-    padding: 8px;
-    margin-bottom: 10px;
-    box-shadow: 0 1px 4px #ff40c984;
-    font-size: 0.95rem;
-    line-height: 1.4;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px #ff40c984;
+    font-size: 1.1rem;
+    line-height: 1.5;
     color: #ffd7f8;
     display: flex;
     flex-direction: row;
-    gap: 8px;
+    gap: 16px;
     align-items: flex-start;
     white-space: pre-wrap;
     word-wrap: break-word;
     user-select: text;
   }
   .wish img {
-    max-width: 70px;
-    max-height: 70px;
-    border-radius: 6px;
-    object-fit: cover;
+    max-width: 140px;
+    max-height: 140px;
+    border-radius: 10px;
+    object-fit: contain;
     flex-shrink: 0;
-    box-shadow: 0 1px 4px #ff70d7b0;
+    box-shadow: 0 2px 8px #ff70d7b0;
     user-select: none;
   }
   .wish-text {
     flex: 1;
-  }
-  /* Memories section */
-  #memoriesContainer {
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 15px;
-  }
-  #memoriesContainer h2 {
-    margin-bottom: 10px;
-    color: #ff72d4;
-  }
-  #memories {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-height: 400px;
-    overflow-y: auto;
-    background: #2e003d;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: inset 0 0 11px #ff40c9cc;
-    user-select: none;
-  }
-  .memory-card {
-    background: #3c004d;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px #ff6edcc0;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    color: #ffd0f6;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    user-select: text;
-  }
-  .memory-card img {
-    max-width: 100%;
-    max-height: 240px;
-    object-fit: contain;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    user-select: none;
-  }
-  .memory-text {
-    font-size: 1rem;
-    line-height: 1.3;
-  }
-  /* Scrollbars */
-  #wishes::-webkit-scrollbar, #memories::-webkit-scrollbar {
-    width: 8px;
-  }
-  #wishes::-webkit-scrollbar-track, #memories::-webkit-scrollbar-track {
-    background: #ff40c95c;
-    border-radius: 8px;
-  }
-  #wishes::-webkit-scrollbar-thumb, #memories::-webkit-scrollbar-thumb {
-    background-color: #ff008c;
-    border-radius: 8px;
-  }
-  /* Responsive */
-  @media screen and (max-width: 360px) {
-    body {
-      padding: 15px;
-    }
-    h1 {
-      font-size: 1.5rem;
-    }
-    #countdown {
-      font-size: 1.2rem;
-    }
-    #wishForm textarea, #spotifyForm input[type="url"] {
-      font-size: 0.95rem;
-    }
-    #wishForm button, #spotifyForm button {
-      font-size: 0.95rem;
-      padding: 10px;
-    }
-    .wish img {
-      max-width: 60px;
-      max-height: 60px;
-    }
-    #spotifyEmbed {
-      height: 70px;
-    }
-    #memories {
-      max-height: 300px;
-    }
-    .memory-card img {
-      max-height: 180px;
-    }
   }
   /* Emoji fall container behind everything */
   #emojiFallContainer {
@@ -420,6 +238,80 @@
     background: #ff80df66;
     color: #fff;
   }
+  /* Mother's Day popup for celebration */
+  #mothersDayPopupOverlay {
+    display: none;
+    position: fixed;
+    z-index: 11000;
+    top:0;left:0;right:0;bottom:0;
+    background: rgba(255,20,100, 0.85);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  #mothersDayPopupContent {
+    background:#fff0f6;
+    border-radius:20px;
+    padding:25px;
+    max-width:320px;
+    text-align:center;
+    box-shadow:0 6px 25px #ff4caaaa;
+    position:relative;
+  }
+  #mothersDayPopupClose {
+    position:absolute;
+    top:8px; right:12px;
+    border:none;
+    background:transparent;
+    font-size:1.8rem;
+    font-weight:700;
+    color:#ff2981;
+    cursor:pointer;
+  }
+  #mothersDayPopupTitle {
+    color:#d81e77;
+    margin-bottom:15px;
+  }
+  #mothersDayPopupMsg {
+    font-size:1.1rem;
+    color:#8e0634;
+    white-space: pre-wrap;
+  }
+  /* Scrollbars */
+  #wishes::-webkit-scrollbar {
+    width: 8px;
+  }
+  #wishes::-webkit-scrollbar-track {
+    background: #ff40c95c;
+    border-radius: 8px;
+  }
+  #wishes::-webkit-scrollbar-thumb {
+    background-color: #ff008c;
+    border-radius: 8px;
+  }
+  /* Responsive */
+  @media screen and (max-width: 360px) {
+    body {
+      padding: 15px;
+    }
+    h1 {
+      font-size: 1.5rem;
+    }
+    #countdown {
+      font-size: 1.2rem;
+    }
+    #wishForm textarea {
+      font-size: 0.95rem;
+    }
+    #wishForm button {
+      font-size: 0.95rem;
+      padding: 10px;
+    }
+    .wish img {
+      max-width: 90px;
+      max-height: 90px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -428,27 +320,14 @@
 
   <div id="musicPlayerContainer">
     <div id="musicPlayerLabel">Toque uma música doce para a mamãe 🎶</div>
-    <audio controls preload="auto" aria-label="Player de música padrão do Dia das Mães">
-      <source src="https://cdn.pixabay.com/download/audio/2022/05/04/audio_3ef0e6f0a4.mp3?filename=sunny-day-111969.mp3" type="audio/mpeg" />
+    <!-- That’s What I Like - Bruno Mars -->
+    <audio controls preload="auto" aria-label="Player da música That's What I Like - Bruno Mars">
+      <source src="https://p.scdn.co/mp3-preview/547e01200a47ef5efb126ee804248a8e0149216a?cid=774b29d4f13844c495f206cafdad9c86" type="audio/mpeg" />
       Seu navegador não suporta o elemento de áudio.
     </audio>
-  </div>
-
-  <form id="spotifyForm" aria-label="Adicionar música do Spotify">
-    <label for="spotifyUrlInput">Cole o link da música do Spotify</label>
-    <input type="url" id="spotifyUrlInput" placeholder="Exemplo: https://open.spotify.com/track/..." aria-required="true" />
-    <button type="button" id="loadSpotifyBtn">Carregar Música</button>
-  </form>
-
-  <div id="spotifyContainer" aria-live="polite" aria-atomic="true" aria-label="Player embutido do Spotify">
-    <iframe id="spotifyEmbed" allow="encrypted-media" allowtransparency="true" loading="lazy" title="Spotify Player"></iframe>
-  </div>
-
-  <div id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-    <div id="popupContent">
-      <button id="popupClose" aria-label="Fechar popup">&times;</button>
-      <img id="popupCover" alt="Capa da música do Spotify" />
-      <h3 id="popupTitle"></h3>
+    <div id="musicCoverContainer" aria-label="Capa e nome da música">
+      <img src="https://i.scdn.co/image/ab67616d0000b27324ebcf7c84657838babfca9f" alt="Capa da música That's What I Like - Bruno Mars" />
+      <h3>That's What I Like - Bruno Mars</h3>
     </div>
   </div>
 
@@ -462,21 +341,8 @@
 
   <div id="wishes" aria-live="polite" aria-relevant="additions" role="region" aria-label="Lista de mensagens para o Dia das Mães"></div>
 
-  <section id="memoriesContainer">
-    <h2>Crie sua página de memórias</h2>
-    <p class="intro">Eternize momentos especiais com quem você ama. Cada gesto e sorriso se transforma em uma lembrança única.</p>
-    <form id="memoryForm" aria-label="Adicionar nova memória">
-      <label for="memoryPhoto">Escolha uma foto (opcional):</label>
-      <input type="file" id="memoryPhoto" accept="image/*" />
-      <label for="memoryText">Escreva uma mensagem fofa:</label>
-      <textarea id="memoryText" maxlength="35000" placeholder="Digite aqui sua lembrança..." aria-required="true"></textarea>
-      <button type="submit">Adicionar memória</button>
-    </form>
-    <section id="memories" aria-live="polite" aria-relevant="additions" role="region" aria-label="Memórias criadas"></section>
-  </section>
-
   <section id="emojiSelectorContainer">
-    <label for="emojiSelector">Escolha seu emoji para a chuva:</label>
+    <label for="emojiSelector">Escolha seu emoji para a chuva</label>
     <select id="emojiSelector" aria-label="Selecionar emoji para chuva">
       <option value="🌸">🌸</option>
       <option value="💐">💐</option>
@@ -495,7 +361,7 @@
 
   <!-- Mother's Day popup for celebration -->
   <div id="mothersDayPopupOverlay" role="dialog" aria-modal="true" aria-labelledby="mothersDayPopupTitle" style="display:none; position: fixed; z-index: 11000; top:0;left:0;right:0;bottom:0; background: rgba(255,20,100, 0.85); display:flex; justify-content:center; align-items:center;">
-    <div style="background:#fff0f6; border-radius:20px; padding:25px; max-width:320px; text-align:center; box-shadow:0 6px 25px #ff4caaaa; position:relative;">
+    <div id="mothersDayPopupContent">
       <button id="mothersDayPopupClose" aria-label="Fechar popup" style="position:absolute; top:8px; right:12px; border:none; background:transparent; font-size:1.8rem; font-weight:700; color:#ff2981; cursor:pointer;">&times;</button>
       <h2 id="mothersDayPopupTitle" style="color:#d81e77; margin-bottom:15px;">Chegou o seu Dia, Mamãe! 🎉</h2>
       <p id="mothersDayPopupMsg" style="font-size:1.1rem; color:#8e0634; white-space: pre-wrap;"></p>
@@ -539,8 +405,6 @@
       if(diff<=0){
         countdownEl.textContent = "Feliz Dia das Mães! 🎉";
         clearInterval(intervalId);
-
-        // Show Mother's Day popup once when countdown ends
         showMothersDayPopup();
         return;
       }
@@ -559,14 +423,13 @@
     const popupMessage = document.getElementById('mothersDayPopupMsg');
 
     function showMothersDayPopup() {
-      // Calculate time difference in seconds
       const nowTS = Date.now();
       const diffMS = nowTS - siteCreationTimestamp;
       const diffSec = Math.floor(diffMS / 1000);
       const diffMin = Math.floor(diffSec / 60);
       const diffHour = Math.floor(diffMin / 60);
       const diffDay = Math.floor(diffHour / 24);
-  
+
       let timeStr = '';
       if(diffDay>0) timeStr += diffDay+" dia"+(diffDay>1?"s":"")+", ";
       if(diffHour%24>0) timeStr += (diffHour%24)+" hora"+((diffHour%24)>1?"s":"")+", ";
@@ -584,63 +447,6 @@
     document.addEventListener('keydown', (e) => {
       if(e.key === "Escape" && popupOverlay.style.display === 'flex'){
         popupOverlay.style.display = 'none';
-      }
-    });
-
-    // Spotify player integration
-    const spotifyUrlInput = document.getElementById('spotifyUrlInput');
-    const loadSpotifyBtn = document.getElementById('loadSpotifyBtn');
-    const spotifyEmbed = document.getElementById('spotifyEmbed');
-    const spotifyContainer = document.getElementById('spotifyContainer');
-    const spotifyPopupOverlay = document.getElementById('popupOverlay');
-    const spotifyPopupClose = document.getElementById('popupClose');
-    const spotifyPopupCover = document.getElementById('popupCover');
-    const spotifyPopupTitle = document.getElementById('popupTitle');
-
-    function extractSpotifyTrackId(url) {
-      try {
-        let u = new URL(url);
-        if(u.hostname==='open.spotify.com'){
-          let parts = u.pathname.split('/');
-          if(parts.length>=3 && parts[1]==='track'){
-            return parts[2].split('?')[0];
-          }
-        }
-      }catch(e){}
-      return null;
-    }
-
-    loadSpotifyBtn.addEventListener('click', function(){
-      let url = spotifyUrlInput.value.trim();
-      if(!url){
-        alert('Por favor, insira o link da música do Spotify.');
-        spotifyUrlInput.focus();
-        return;
-      }
-      let trackId = extractSpotifyTrackId(url);
-      if(!trackId){
-        alert('Link inválido! Insira um link válido para a música do Spotify.');
-        spotifyUrlInput.focus();
-        return;
-      }
-      let embedUrl = `https://open.spotify.com/embed/track/${trackId}`;
-      spotifyEmbed.src = embedUrl;
-      spotifyContainer.style.display = 'block';
-      let musicName = prompt("Digite o nome da música para exibir no popup:");
-      if(!musicName) musicName = "Nome não informado";
-      spotifyPopupCover.src = "https://upload.wikimedia.org/wikipedia/commons/4/4f/Spotify_icon_green.svg";
-      spotifyPopupTitle.textContent = musicName;
-      spotifyPopupOverlay.style.display = 'flex';
-      spotifyPopupClose.focus();
-    });
-
-    spotifyPopupClose.addEventListener('click', function(){
-      spotifyPopupOverlay.style.display = 'none';
-    });
-    document.addEventListener('keydown', function(e){
-      if(e.key==='Escape' && spotifyPopupOverlay.style.display==='flex'){
-        spotifyPopupOverlay.style.display = 'none';
-        loadSpotifyBtn.focus();
       }
     });
 
@@ -704,87 +510,6 @@
       wishesContainer.insertBefore(div, wishesContainer.firstChild);
     }
 
-    // Memories section
-    const memoryForm = document.getElementById('memoryForm');
-    const memoryPhotoInput = document.getElementById('memoryPhoto');
-    const memoryTextInput = document.getElementById('memoryText');
-    const memoriesContainer = document.getElementById('memories');
-    let memories = [];
-
-    function loadMemories(){
-      const data = localStorage.getItem('memoriesPageData');
-      if(data){
-        memories = JSON.parse(data);
-        memories.forEach(m=>addMemoryToDOM(m));
-      }
-    }
-    function saveMemories(){
-      localStorage.setItem('memoriesPageData', JSON.stringify(memories));
-    }
-    function addMemoryToDOM(memory){
-      const card = document.createElement('article');
-      card.className = 'memory-card';
-      if(memory.photo){
-        const img = document.createElement('img');
-        img.src = memory.photo;
-        img.alt = 'Foto da memória';
-        img.loading = 'lazy';
-        card.appendChild(img);
-      }
-      const textDiv = document.createElement('div');
-      textDiv.className = 'memory-text';
-      textDiv.textContent = memory.text;
-      card.appendChild(textDiv);
-      memoriesContainer.appendChild(card);
-    }
-
-    memoryForm.addEventListener('submit', function(e){
-      e.preventDefault();
-      const text = memoryTextInput.value.trim();
-      if(text.length===0){
-        alert('Por favor, escreva uma mensagem antes de adicionar a memória.');
-        memoryTextInput.focus();
-        return;
-      }
-      if(text.length>35000){
-        alert('A mensagem deve ter no máximo 35000 caracteres.');
-        memoryTextInput.focus();
-        return;
-      }
-      if(memoryPhotoInput.files.length>0){
-        const file = memoryPhotoInput.files[0];
-        if(!file.type.startsWith('image/')){
-          alert('Por favor, selecione um arquivo de imagem válido.');
-          memoryPhotoInput.value = '';
-          return;
-        }
-        if(file.size>5*1024*1024){
-          alert('A imagem não pode ser maior que 5MB.');
-          memoryPhotoInput.value = '';
-          return;
-        }
-        const reader=new FileReader();
-        reader.onload=function(event){
-          const newMemory={photo:event.target.result,text:text};
-          memories.unshift(newMemory);
-          saveMemories();
-          addMemoryToDOM(newMemory);
-          memoryForm.reset();
-          memoryTextInput.focus();
-        };
-        reader.readAsDataURL(file);
-      }else{
-        const newMemory={photo:null,text:text};
-        memories.unshift(newMemory);
-        saveMemories();
-        addMemoryToDOM(newMemory);
-        memoryForm.reset();
-        memoryTextInput.focus();
-      }
-    });
-
-    loadMemories();
-
     // Emoji falling animation
     const emojiFallContainer = document.getElementById('emojiFallContainer');
     const emojiSelector = document.getElementById('emojiSelector');
@@ -815,7 +540,7 @@
 
     // Create initial falling emojis interval
     let emojiInterval = setInterval(() => {
-      if(emojiElements.length < maxEmoji){
+      if(emojiElements.length< maxEmoji){
         createEmoji();
       }
     }, 300);
@@ -844,4 +569,3 @@
 </script>
 </body>
 </html>
-
