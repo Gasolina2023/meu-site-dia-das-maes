@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no" />
+<title>Página Especial para o Dia das Mães - Com Emojis</title>
+<style>
+  /* Reset */
+  * {
+    box-sizing: border-box;
+  }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: #000000;
+    color: #f5f0f7;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+    overflow-x: hidden;
+  }
+  body {
+    max-width: 350px;
+    min-height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+  }
+  h1, h2, h3 {
+    margin: 0 0 10px 0;
+    text-align: center;
+    color: #ff8eda;
+  }
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 8px #ff60bbaa;
+  }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #ff5acc;
+  }
+  p.intro {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    color: #ff70d7cc;
+    user-select: text;
+  }
+  #countdown {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    margin: 0 0 25px;
+    color: #ff4fc9;
+    width: 100%;
+    text-align: center;
+    user-select: text;
+    text-shadow: 0 0 12px #ff40c6bb;
+  }
+  /* Music player container */
+  #musicPlayerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 8px;
+  }
+  #musicPlayerLabel {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ff92d1;
+    text-shadow: 0 0 8px #ff67c5bb;
+  }
+  audio, iframe {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px #ff69c1aa;
+    background: #10001f;
+  }
+  /* Spotify embed */
+  #spotifyContainer {
+    display: none;
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px #ff69c1aa;
+  }
+  #spotifyEmbed {
+    width: 100%;
+    height: 80px;
+    border-radius: 8px;
+    border: none;
+    background: #10001f;
+  }
+  /* Spotify form */
+  #spotifyForm {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    margin-bottom: 25px;
+  }
+  #spotifyForm label {
+    font-weight: 600;
+    color: #ff99db;
+  }
+  #spotifyForm input[type="url"] {
+    padding: 8px 10px;
+    border: 2px solid #ff57be;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #ff40c9;
+    background: #1a0026;
+    transition: border-color 0.3s ease;
+  }
+  #spotifyForm input[type="url"]:focus {
+    outline: none;
+    border-color: #ff80df;
+    background: #2c003a;
+  }
+  #spotifyForm button {
+    background: #ff57be;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #spotifyForm button:hover, #spotifyForm button:focus {
+    background: #ff7fcc;
+    outline: none;
+  }
+  /* Popup for Spotify cover and name */
+  #popupOverlay {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 0, 150, 0.9);
+    justify-content: center;
+    align-items: center;
+  }
+  #popupContent {
+    background: #2c003a;
+    border-radius: 12px;
+    padding: 20px 25px;
+    max-width: 300px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 6px 20px #ff33ccdd;
+    position: relative;
+    user-select: none;
+    color: #fff0ff;
+  }
+  #popupContent img {
+    max-width: 80%;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 15px #ff33ccbb;
+  }
+  #popupContent h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.3rem;
+    user-select: text;
+  }
+  #popupClose {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ff4fc9;
+    cursor: pointer;
+    user-select: none;
+  }
+  /* Wish form */
+  #wishForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 25px;
+  }
+  #wishForm label {
+    font-weight: 600;
+    color: #ff7fcb;
+  }
+  #wishForm textarea {
+    resize: none;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #ff5bbb;
+    color: #ff3ec3;
+    min-height: 70px;
+    background: #1a0026;
+    transition: border-color 0.3s ease;
+  }
+  #wishForm textarea:focus {
+    outline: none;
+    border-color: #ff80df;
+    background: #2c003a;
+    color: #ffd0ed;
+  }
+  #wishForm input[type="file"] {
+    font-size: 0.95rem;
+    color: #ff40c9;
+    background: #1a0026;
+  }
+  #wishForm button {
+    background: #ff57be;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #wishForm button:hover, #wishForm button:focus {
+    background: #ff7fcc;
+    outline: none;
+  }
+  /* Wishes container */
+  #wishes {
+    margin-top: 10px;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #1a0026;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: inset 0 0 14px #ff40c963;
+    user-select: none;
+  }
+  .wish {
+    background: #3f004c;
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px #ff40c984;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    color: #ffd7f8;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: flex-start;
+    user-select: text;
+  }
+  .wish img {
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px #ff70d7b0;
+    user-select: none;
+  }
+  .wish-text {
+    flex: 1;
+    word-break: break-word;
+  }
+  /* Memories section */
+  #memoriesContainer {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  #memoriesContainer h2 {
+    margin-bottom: 10px;
+    color: #ff72d4;
+  }
+  #memories {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+    background: #2e003d;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: inset 0 0 11px #ff40c9cc;
+    user-select: none;
+  }
+  .memory-card {
+    background: #3c004d;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px #ff6edcc0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    color: #ffd0f6;
+    user-select: text;
+  }
+  .memory-card img {
+    max-width: 100%;
+    max-height: 160px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    user-select: none;
+  }
+  .memory-text {
+    font-size: 1rem;
+    line-height: 1.3;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    user-select: text;
+  }
+  /* Scrollbars */
+  #wishes::-webkit-scrollbar, #memories::-webkit-scrollbar {
+    width: 6px;
+  }
+  #wishes::-webkit-scrollbar-track, #memories::-webkit-scrollbar-track {
+    background: #ff40c95c;
+    border-radius: 8px;
+  }
+  #wishes::-webkit-scrollbar-thumb, #memories::-webkit-scrollbar-thumb {
+    background-color: #ff008c;
+    border-radius: 8px;
+  }
+  /* Responsive */
+  @media screen and (max-width: 360px) {
+    body {
+      padding: 15px;
+    }
+    h1 {
+      font-size: 1.5rem;
+    }
+    #countdown {
+      font-size: 1.2rem;
+    }
+    #wishForm textarea, #spotifyForm input[type="url"] {
+      font-size: 0.95rem;
+    }
+    #wishForm button, #spotifyForm button {
+      font-size: 0.95rem;
+      padding: 10px;
+    }
+    .wish img {
+      max-width: 60px;
+      max-height: 60px;
+    }
+    #spotifyEmbed {
+      height: 70px;
+    }
+    #memories {
+      max-height: 160px;
+    }
+    .memory-card img {
+      max-height: 140px;
+    }
+  }
+  /* Emoji fall container behind everything */
+  #emojiFallContainer {
+    pointer-events: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .emojiFall {
+    position: absolute;
+    top: -2em;
+    font-size: 1.6rem;
+    opacity: 0.8;
+    user-select: none;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    will-change: transform;
+    text-shadow: 0 0 5px #ff40c9bb;
+  }
+  /* Emoji selection UI */
+  #emojiSelectorContainer {
+    width: 100%;
+    background: #1a0026;
+    border-radius: 12px;
+    box-shadow: 0 0 8px #ff67c5bb;
+    padding: 10px 10px 6px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  #emojiSelectorContainer label {
+    font-weight: 700;
+    color: #ff7fcc;
+  }
+  #emojiSelector {
+    font-size: 1.8rem;
+    background: transparent;
+    border: none;
+    color: #ff70d7;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.25s ease;
+    padding: 4px 6px 2px;
+    width: 60px;
+    text-align: center;
+  }
+  #emojiSelector:focus {
+    outline: none;
+    background: #ff80df66;
+    color: #fff;
+  }
+  #emojiSelectorOption {
+    font-size: 1.8rem;
+  }
+</style>
+</head>
+<body>
+  <h1>Contagem Regressiva do Dia das Mães</h1>
+  <div id="countdown" aria-live="polite" aria-atomic="true" role="timer" aria-label="Tempo restante para o Dia das Mães">Carregando...</div>
+
+  <div id="musicPlayerContainer">
+    <div id="musicPlayerLabel">Toque uma música doce para a mamãe 🎶</div>
+    <audio controls preload="auto" aria-label="Player de música padrão do Dia das Mães">
+      <source src="https://cdn.pixabay.com/download/audio/2022/05/04/audio_3ef0e6f0a4.mp3?filename=sunny-day-111969.mp3" type="audio/mpeg" />
+      Seu navegador não suporta o elemento de áudio.
+    </audio>
+  </div>
+
+  <form id="spotifyForm" aria-label="Adicionar música do Spotify">
+    <label for="spotifyUrlInput">Cole o link da música do Spotify</label>
+    <input type="url" id="spotifyUrlInput" placeholder="Exemplo: https://open.spotify.com/track/..." aria-required="true" />
+    <button type="button" id="loadSpotifyBtn">Carregar Música</button>
+  </form>
+
+  <div id="spotifyContainer" aria-live="polite" aria-atomic="true" aria-label="Player embutido do Spotify">
+    <iframe id="spotifyEmbed" allow="encrypted-media" allowtransparency="true" loading="lazy" title="Spotify Player"></iframe>
+  </div>
+
+  <div id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <div id="popupContent">
+      <button id="popupClose" aria-label="Fechar popup">&times;</button>
+      <img id="popupCover" alt="Capa da música do Spotify" />
+      <h3 id="popupTitle"></h3>
+    </div>
+  </div>
+
+  <form id="wishForm" aria-label="Enviar mensagem para o Dia das Mães">
+    <label for="wishInput">Escreva sua mensagem para o Dia das Mães</label>
+    <textarea id="wishInput" aria-required="true" placeholder="Digite sua mensagem aqui..." maxlength="200"></textarea>
+    <label for="wishPhoto">Adicione uma foto (opcional):</label>
+    <input type="file" id="wishPhoto" accept="image/*" />
+    <button type="submit">Enviar Mensagem</button>
+  </form>
+
+  <div id="wishes" aria-live="polite" aria-relevant="additions" role="region" aria-label="Lista de mensagens para o Dia das Mães"></div>
+
+  <section id="memoriesContainer">
+    <h2>Crie sua página de memórias</h2>
+    <p class="intro">Eternize momentos especiais com quem você ama. Cada gesto e sorriso se transforma em uma lembrança única.</p>
+    <form id="memoryForm" aria-label="Adicionar nova memória">
+      <label for="memoryPhoto">Escolha uma foto (opcional):</label>
+      <input type="file" id="memoryPhoto" accept="image/*" />
+      <label for="memoryText">Escreva uma mensagem fofa:</label>
+      <textarea id="memoryText" maxlength="400" placeholder="Digite aqui sua lembrança..." aria-required="true"></textarea>
+      <button type="submit">Adicionar memória</button>
+    </form>
+    <section id="memories" aria-live="polite" aria-relevant="additions" role="region" aria-label="Memórias criadas"></section>
+  </section>
+
+  <section id="emojiSelectorContainer">
+    <label for="emojiSelector">Escolha seu emoji para a chuva:</label>
+    <select id="emojiSelector" aria-label="Selecionar emoji para chuva">
+      <option value="🌸">🌸</option>
+      <option value="💐">💐</option>
+      <option value="🌷">🌷</option>
+      <option value="🌹">🌹</option>
+      <option value="💕">💕</option>
+      <option value="💖">💖</option>
+      <option value="💝">💝</option>
+      <option value="✨">✨</option>
+      <option value="🎀">🎀</option>
+      <option value="🌻">🌻</option>
+    </select>
+  </section>
+
+  <div id="emojiFallContainer" aria-hidden="true"></div>
+
+<script>
+  (function() {
+    // Countdown
+    function getNextMothersDay() {
+      let now = new Date();
+      let year = now.getFullYear();
+      function secondSunday(y) {
+        let d = new Date(y,4,1);
+        let day = d.getDay();
+        let offset = (7 - day) % 7;
+        return 1 + offset + 7;
+      }
+      let date = secondSunday(year);
+      let md = new Date(year,4,date,0,0,0,0);
+      if (now > md) {
+        year++;
+        date = secondSunday(year);
+        md = new Date(year,4,date,0,0,0,0);
+      }
+      return md;
+    }
+    let targetDate = getNextMothersDay();
+    const countdownEl = document.getElementById('countdown');
+    function pad(n){return n<10?'0'+n:n;}
+    function updateCountdown(){
+      let now = new Date();
+      let diff = targetDate - now;
+      if(diff<=0){
+        countdownEl.textContent = "Feliz Dia das Mães! 🎉";
+        clearInterval(intervalId);
+        return;
+      }
+      let days=Math.floor(diff/(1000*60*60*24));
+      let hours=Math.floor((diff/(1000*60*60))%24);
+      let mins=Math.floor((diff/(1000*60))%60);
+      let secs=Math.floor((diff/1000)%60);
+      countdownEl.textContent = days+(days===1?' dia ':' dias ')+pad(hours)+":"+pad(mins)+":"+pad(secs);
+    }
+    updateCountdown();
+    let intervalId = setInterval(updateCountdown,1000);
+
+    // Spotify player integration
+    const spotifyUrlInput = document.getElementById('spotifyUrlInput');
+    const loadSpotifyBtn = document.getElementById('loadSpotifyBtn');
+    const spotifyEmbed = document.getElementById('spotifyEmbed');
+    const spotifyContainer = document.getElementById('spotifyContainer');
+    const popupOverlay = document.getElementById('popupOverlay');
+    const popupClose = document.getElementById('popupClose');
+    const popupCover = document.getElementById('popupCover');
+    const popupTitle = document.getElementById('popupTitle');
+
+    function extractSpotifyTrackId(url) {
+      try {
+        let u = new URL(url);
+        if(u.hostname==='open.spotify.com'){
+          let parts = u.pathname.split('/');
+          if(parts.length>=3 && parts[1]==='track'){
+            return parts[2].split('?')[0];
+          }
+        }
+      }catch(e){}
+      return null;
+    }
+
+    loadSpotifyBtn.addEventListener('click', function(){
+      let url = spotifyUrlInput.value.trim();
+      if(!url){
+        alert('Por favor, insira o link da música do Spotify.');
+        spotifyUrlInput.focus();
+        return;
+      }
+      let trackId = extractSpotifyTrackId(url);
+      if(!trackId){
+        alert('Link inválido! Insira um link válido para a música do Spotify.');
+        spotifyUrlInput.focus();
+        return;
+      }
+      let embedUrl = `https://open.spotify.com/embed/track/${trackId}`;
+      spotifyEmbed.src = embedUrl;
+      spotifyContainer.style.display = 'block';
+      let musicName = prompt("Digite o nome da música para exibir no popup:");
+      if(!musicName) musicName = "Nome não informado";
+      popupCover.src = "https://upload.wikimedia.org/wikipedia/commons/4/4f/Spotify_icon_green.svg";
+      popupTitle.textContent = musicName;
+      popupOverlay.style.display = 'flex';
+      popupClose.focus();
+    });
+
+    popupClose.addEventListener('click', function(){
+      popupOverlay.style.display = 'none';
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape' && popupOverlay.style.display==='flex'){
+        popupOverlay.style.display = 'none';
+        loadSpotifyBtn.focus();
+      }
+    });
+
+    // Wish form
+    const wishForm = document.getElementById('wishForm');
+    const wishInput = document.getElementById('wishInput');
+    const wishPhotoInput = document.getElementById('wishPhoto');
+    const wishesContainer = document.getElementById('wishes');
+
+    wishForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      let text = wishInput.value.trim();
+      if(!text){
+        alert('Por favor, digite uma mensagem antes de enviar.');
+        wishInput.focus();
+        return;
+      }
+      if(text.length>200){
+        alert('A mensagem é muito longa. Máximo 200 caracteres.');
+        wishInput.focus();
+        return;
+      }
+      if(wishPhotoInput.files.length>0){
+        let file = wishPhotoInput.files[0];
+        if(!file.type.startsWith('image/')){
+          alert('Por favor, envie um arquivo de imagem válido.');
+          wishPhotoInput.value = '';
+          return;
+        }
+        if(file.size > 5*1024*1024){
+          alert('A imagem deve ter menos de 5MB.');
+          wishPhotoInput.value = '';
+          return;
+        }
+        let reader = new FileReader();
+        reader.onload = function(event){
+          addWish(text,event.target.result);
+        }
+        reader.readAsDataURL(file);
+      }else{
+        addWish(text, null);
+      }
+      wishInput.value = '';
+      wishPhotoInput.value = '';
+      wishInput.focus();
+    });
+
+    function addWish(text, imageData){
+      const div = document.createElement('div');
+      div.className = 'wish';
+      if(imageData){
+        const img = document.createElement('img');
+        img.src = imageData;
+        img.alt = 'Foto enviada com a mensagem';
+        div.appendChild(img);
+      }
+      const textDiv = document.createElement('div');
+      textDiv.className = 'wish-text';
+      textDiv.textContent = text;
+      div.appendChild(textDiv);
+      wishesContainer.insertBefore(div, wishesContainer.firstChild);
+    }
+
+    // Memories section
+    const memoryForm = document.getElementById('memoryForm');
+    const memoryPhotoInput = document.getElementById('memoryPhoto');
+    const memoryTextInput = document.getElementById('memoryText');
+    const memoriesContainer = document.getElementById('memories');
+    let memories = [];
+
+    function loadMemories(){
+      const data = localStorage.getItem('memoriesPageData');
+      if(data){
+        memories = JSON.parse(data);
+        memories.forEach(m=>addMemoryToDOM(m));
+      }
+    }
+    function saveMemories(){
+      localStorage.setItem('memoriesPageData', JSON.stringify(memories));
+    }
+    function addMemoryToDOM(memory){
+      const card = document.createElement('article');
+      card.className = 'memory-card';
+      if(memory.photo){
+        const img = document.createElement('img');
+        img.src = memory.photo;
+        img.alt = 'Foto da memória';
+        img.loading = 'lazy';
+        card.appendChild(img);
+      }
+      const textDiv = document.createElement('div');
+      textDiv.className = 'memory-text';
+      textDiv.textContent = memory.text;
+      card.appendChild(textDiv);
+      memoriesContainer.appendChild(card);
+    }
+
+    memoryForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const text = memoryTextInput.value.trim();
+      if(text.length===0){
+        alert('Por favor, escreva uma mensagem antes de adicionar a memória.');
+        memoryTextInput.focus();
+        return;
+      }
+      if(text.length>400){
+        alert('A mensagem deve ter no máximo 400 caracteres.');
+        memoryTextInput.focus();
+        return;
+      }
+      if(memoryPhotoInput.files.length>0){
+        const file = memoryPhotoInput.files[0];
+        if(!file.type.startsWith('image/')){
+          alert('Por favor, selecione um arquivo de imagem válido.');
+          memoryPhotoInput.value = '';
+          return;
+        }
+        if(file.size>5*1024*1024){
+          alert('A imagem não pode ser maior que 5MB.');
+          memoryPhotoInput.value = '';
+          return;
+        }
+        const reader=new FileReader();
+        reader.onload=function(event){
+          const newMemory={photo:event.target.result,text:text};
+          memories.unshift(newMemory);
+          saveMemories();
+          addMemoryToDOM(newMemory);
+          memoryForm.reset();
+          memoryTextInput.focus();
+        };
+        reader.readAsDataURL(file);
+      }else{
+        const newMemory={photo:null,text:text};
+        memories.unshift(newMemory);
+        saveMemories();
+        addMemoryToDOM(newMemory);
+        memoryForm.reset();
+        memoryTextInput.focus();
+      }
+    });
+
+    loadMemories();
+
+    // Emoji falling animation
+    const emojiFallContainer = document.getElementById('emojiFallContainer');
+    const emojiSelector = document.getElementById('emojiSelector');
+
+    let emojiChar = emojiSelector.value;
+    let emojiElements = [];
+    let maxEmoji = 30;
+    let screenWidth = window.innerWidth;
+
+    function createEmoji(){
+      const emoji = document.createElement('div');
+      emoji.className = 'emojiFall';
+      emoji.textContent = emojiChar;
+      emoji.style.left = Math.random() * (screenWidth-24) + 'px';
+      emoji.style.fontSize = (12 + Math.random()*20) + 'px';
+      emoji.style.opacity = 0.6 + Math.random()*0.4;
+      emoji.style.animationDuration = (4000 + Math.random()*6000) + 'ms';
+      emoji.style.animationName = 'falling';
+      emojiFallContainer.appendChild(emoji);
+      emojiElements.push(emoji);
+
+      // Remove emoji after animation ends
+      emoji.addEventListener('animationend', ()=>{
+        emoji.remove();
+        emojiElements = emojiElements.filter(e => e!==emoji);
+      });
+    }
+
+    // Create initial falling emojis interval
+    let emojiInterval = setInterval(() => {
+      if(emojiElements.length < maxEmoji){
+        createEmoji();
+      }
+    }, 300);
+
+    // When the emoji changes
+    emojiSelector.addEventListener('change', (e)=>{
+      emojiChar = e.target.value;
+    });
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      screenWidth = window.innerWidth;
+    });
+
+    // Define falling animation keyframes dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes falling {
+        0% { transform: translateY(-2em) rotate(0deg); }
+        100% { transform: translateY(110vh) rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+
+  })();
+</script>
+</body>
+</html>
+
