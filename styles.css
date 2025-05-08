@@ -1,0 +1,55 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: black; /* Fundo preto */
+    color: white; /* Texto branco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura total da tela */
+    margin: 0;
+}
+
+.welcome-container {
+    max-width: 600px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradiente de fundo */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center; /* Centraliza o texto */
+}
+
+h1 {
+    color: #d5006d; /* Cor rosa para o título */
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2em;
+    margin: 20px 0;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #d5006d; /* Cor rosa para o botão */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #b0004d; /* Cor mais escura ao passar o mouse */
+}
+
+.image-container {
+    margin-top: 20px;
+}
+
+.welcome-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Bordas arredondadas para a imagem */
+}
